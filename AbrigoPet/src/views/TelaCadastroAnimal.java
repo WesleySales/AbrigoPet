@@ -145,12 +145,11 @@ public class TelaCadastroAnimal extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 625, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnEncerrarSessao, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(btnEncerrarSessao, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(165, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtIdadeAnimal, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(txtPesoAnimal, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -164,14 +163,18 @@ public class TelaCadastroAnimal extends javax.swing.JFrame {
                             .addComponent(btnCadastrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(comboBoxEspecie, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(163, 163, 163))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 613, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(btnEncerrarSessao, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnEncerrarSessao, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50)
+                .addGap(41, 41, 41)
                 .addComponent(txtNomeAnimal, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtPesoAnimal, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -232,48 +235,49 @@ public class TelaCadastroAnimal extends javax.swing.JFrame {
             
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         String nome = txtNomeAnimal.getText();
-        if(nome.equalsIgnoreCase("")|| nome.equalsIgnoreCase("Digite o nome...") || nome.length()<=3){
-            JOptionPane.showMessageDialog(null, "Preencha o campo com pelo menos 3 caracteres");
-        }
+//        if(nome.equalsIgnoreCase("")|| nome.equalsIgnoreCase("Digite o nome...") || nome.length()<=3){
+//            JOptionPane.showMessageDialog(null, "Preencha o campo com pelo menos 3 caracteres");
+//        }
         
         int idade = Integer.parseInt(txtIdadeAnimal.getText());
-        if(idade<=0|| txtIdadeAnimal.getText().equalsIgnoreCase("Digite a idade...")){
-            JOptionPane.showMessageDialog(null, "Preencha a idade com um valor válido");            
-        }
+//        if(idade<=0|| txtIdadeAnimal.getText().equalsIgnoreCase("Digite a idade...")){
+//            JOptionPane.showMessageDialog(null, "Preencha a idade com um valor válido");            
+//        }
         
         double peso = Double.parseDouble(txtPesoAnimal.getText());
-        if(peso<=0.0|| txtPesoAnimal.getText().equalsIgnoreCase("Digite a peso...")){
-            JOptionPane.showMessageDialog(null, "Digite um peso válido");            
-        }
+//        if(peso<=0.0|| txtPesoAnimal.getText().equalsIgnoreCase("Digite a peso...")){
+//            JOptionPane.showMessageDialog(null, "Digite um peso válido");            
+//        }
         
         int indexEspecie = comboBoxEspecie.getSelectedIndex(); //verifica o id do item na caixa de selecao
         int indexCor = comboBoxCor.getSelectedIndex(); //verifica o id do item na caixa de selecao
         
+        if(indexCor==0){
+            JOptionPane.showMessageDialog(null, "Selecione uma cor válida");
+        } else if (indexEspecie == 0 && indexCor!=0 ){
+            JOptionPane.showMessageDialog(null, "Selecione uma espécie válida");
+        }
         
         String cor = null;
         
         switch (indexCor){ // associa o id do item ao texto presente no campo
-            case 0 -> {
-               JOptionPane.showMessageDialog(null, "Selecione uma cor válida");
-                break; 
-            }
+            
             case 1 -> cor = "BRANCO";
             case 2 -> cor = "PRETO";
             case 3 -> cor = "CARAMELO";
         }
         
         switch(indexEspecie){ // associa o id do item ao texto presente no campo
-           case 0 -> { // se o item selecionado for o 0 ele vai instanciar um objeto GATO
-               JOptionPane.showMessageDialog(null, "Selecione uma espécie válida");
-               break;
-            }
+           
            case 1 -> { // se o item selecionado for o 0 ele vai instanciar um objeto GATO
                var gato = new Gato(nome, idade, peso, cor);
                gato.cacadastrarAnimal(); // cadastra o objeto instanciado na lista de animais
+                JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
             }
            case 2 -> { 
                var cachorro = new Cachorro(nome, idade, peso, cor); // se o item selecionado for o 0 ele vai instanciar um objeto GATO
                cachorro.cacadastrarAnimal(); // cadastra o objeto instanciado na lista de animais
+               JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
             }
         }
         
