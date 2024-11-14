@@ -1,5 +1,6 @@
 package entities;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,22 +9,20 @@ public class Animal {
     protected static int geradorIdAnimal = 100;
     protected int id;
     protected String nome;
-    protected int idade;
+    protected LocalDate dataNascimento;
     protected double peso;
     protected String cor;
     protected String especie;
-    protected boolean disponivel;
 
     public static List<Animal> listaDeAnimais = new ArrayList<>();
 
-    public Animal(String nome, int idade, double peso, String cor, String especie) {
+    public Animal(String nome, LocalDate dataNascimento, double peso, String cor, String especie) {
         this.id = geradorIdAnimal++;
         this.nome = nome;
-        this.idade = idade;
+        this.dataNascimento = dataNascimento;
         this.peso = peso;
         this.cor = cor;
         this.especie = especie;
-        this.disponivel = true;
     }
 
     public String getNome() {
@@ -34,13 +33,6 @@ public class Animal {
         this.nome = nome;
     }
 
-    public int getIdade() {
-        return idade;
-    }
-
-    public void setIdade(int idade) {
-        this.idade = idade;
-    }
     
     public void emitirSom(){
         System.out.println("Fazendo barulho");
@@ -74,7 +66,7 @@ public class Animal {
         if (!listaDeAnimais.isEmpty()) {
             StringBuilder sb = new StringBuilder();
             for (Animal a : Animal.listaDeAnimais) {
-                if(a.especie.equals(especie) && a.isDisponivel()==true){
+                if(a.especie.equals(especie)){
                     sb.append(a).append("\n");
                 }                
             }
@@ -86,7 +78,7 @@ public class Animal {
     public static Animal buscarPorNome(String nome){
         if(!listaDeAnimais.isEmpty()){
             for(Animal a: listaDeAnimais){
-                if(a.getNome().equalsIgnoreCase(nome) && a.isDisponivel()==true){
+                if(a.getNome().equalsIgnoreCase(nome)){
                     return a;
                 }
             }
@@ -94,10 +86,6 @@ public class Animal {
         return null;
     }
     
-    public void concluirAdocao() {
-        System.out.println("Adoção concluída!");
-    }
-
     public int getId() {
         return id;
     }
@@ -106,13 +94,7 @@ public class Animal {
         this.id = id;
     }
 
-    public boolean isDisponivel() {
-        return disponivel;
-    }
-
-    public void setDisponivel(boolean disponivel) {
-        this.disponivel = disponivel;
-    }
+   
    
     @Override
     public String toString() {
