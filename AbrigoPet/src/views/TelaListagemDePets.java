@@ -19,24 +19,7 @@ public class TelaListagemDePets extends javax.swing.JFrame {
      */
     public TelaListagemDePets() {
         initComponents();
-        
-        var novoGato1 = new Gato("TESTE", 2, 6, "BRANCO");
-        var novoGato2 = new Gato("Linda", 2, 6, "CINZA");
-        var novoGato3 = new Gato("Gatinha", 2, 6, "BRANCO");
-        var novoCachorro1 = new Cachorro("Princesa", 20, 80, "CARAMELO");
-        var novoCachorro2 = new Cachorro("Princesa", 20, 80, "BRANCO");
-        var novoCachorro3 = new Cachorro("Negao", 20, 80, "PRETO");
-        
-        novoGato1.cacadastrarAnimal();
-        novoGato2.cacadastrarAnimal();
-        novoGato3.cacadastrarAnimal();
-        
-        novoCachorro1.cacadastrarAnimal();
-        novoCachorro2.cacadastrarAnimal();
-        novoCachorro3.cacadastrarAnimal();
-        
         exibirListaDeAnimais();
-
     }
 
     /**
@@ -56,6 +39,8 @@ public class TelaListagemDePets extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         txtListaDeAnimais = new javax.swing.JTextArea();
         comboBoxEspecie = new javax.swing.JComboBox<>();
+        btnDeletar = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -73,7 +58,7 @@ public class TelaListagemDePets extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Californian FB", 1, 48)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel2.setText("Lista de Pets");
 
         txtBuscarPetPorNome.addActionListener(new java.awt.event.ActionListener() {
@@ -82,7 +67,7 @@ public class TelaListagemDePets extends javax.swing.JFrame {
             }
         });
 
-        btnBuscarPet.setText("SELECIONAR PET");
+        btnBuscarPet.setText("BUSCAR");
         btnBuscarPet.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarPetActionPerformed(evt);
@@ -101,6 +86,20 @@ public class TelaListagemDePets extends javax.swing.JFrame {
             }
         });
 
+        btnDeletar.setText("DELETAR");
+        btnDeletar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeletarActionPerformed(evt);
+            }
+        });
+
+        btnEditar.setText("EDITAR");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -110,32 +109,37 @@ public class TelaListagemDePets extends javax.swing.JFrame {
                 .addComponent(btnEncerrarSessao, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(47, 47, 47)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 641, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(comboBoxEspecie, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtBuscarPetPorNome, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(btnBuscarPet, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 626, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 641, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(txtBuscarPetPorNome, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnBuscarPet, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnEditar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnDeletar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(comboBoxEspecie, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(btnEncerrarSessao, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
+                .addGap(12, 12, 12)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39)
+                .addGap(49, 49, 49)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(comboBoxEspecie, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtBuscarPetPorNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscarPet))
+                    .addComponent(btnBuscarPet)
+                    .addComponent(comboBoxEspecie, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEditar)
+                    .addComponent(btnDeletar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -159,7 +163,7 @@ public class TelaListagemDePets extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnEncerrarSessaoActionPerformed
 
-    public void exibirListaDeAnimais(){
+    public void exibirListaDeAnimais() {
         txtListaDeAnimais.setText(Animal.listarAnimais());
     }
     private void txtBuscarPetPorNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarPetPorNomeActionPerformed
@@ -167,24 +171,38 @@ public class TelaListagemDePets extends javax.swing.JFrame {
     }//GEN-LAST:event_txtBuscarPetPorNomeActionPerformed
 
     private void btnBuscarPetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarPetActionPerformed
-        // TODO add your handling code here:
+        String nome = txtBuscarPetPorNome.getText();
+        Animal animal = Animal.buscarPorNome(nome);
+
+        if (animal != null) {
+            txtListaDeAnimais.setText(animal.toString());
+        } else {
+            txtListaDeAnimais.setText("Animal não encontrado");
+        }
     }//GEN-LAST:event_btnBuscarPetActionPerformed
 
     private void comboBoxEspecieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxEspecieActionPerformed
-       int indexEspecie = comboBoxEspecie.getSelectedIndex();
-       switch(indexEspecie){
-           case 0:               
-               txtListaDeAnimais.setText(Animal.listarAnimais());
-               break;
-           case 1:
-               txtListaDeAnimais.setText(Animal.listarAnimaisPorEspecie("GATO"));
-               break;
-           case 2: 
-               txtListaDeAnimais.setText(Animal.listarAnimaisPorEspecie("CACHORRO"));
-               break;
-       }
+        int indexEspecie = comboBoxEspecie.getSelectedIndex();
+        switch (indexEspecie) {
+            case 0:
+                txtListaDeAnimais.setText(Animal.listarAnimais());
+                break;
+            case 1:
+                txtListaDeAnimais.setText(Animal.listarAnimaisPorEspecie("GATO"));
+                break;
+            case 2:
+                txtListaDeAnimais.setText(Animal.listarAnimaisPorEspecie("CACHORRO"));
+                break;
+        }
     }//GEN-LAST:event_comboBoxEspecieActionPerformed
 
+    private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
+
+    }//GEN-LAST:event_btnDeletarActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEditarActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -233,6 +251,8 @@ public class TelaListagemDePets extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscarPet;
+    private javax.swing.JButton btnDeletar;
+    private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEncerrarSessao;
     private javax.swing.JComboBox<String> comboBoxEspecie;
     private javax.swing.JLabel jLabel2;

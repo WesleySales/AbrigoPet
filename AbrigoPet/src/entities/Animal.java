@@ -9,17 +9,17 @@ public class Animal {
     protected static int geradorIdAnimal = 100;
     protected int id;
     protected String nome;
-    protected LocalDate dataNascimento;
+    protected int idade;
     protected double peso;
     protected String cor;
     protected String especie;
 
     public static List<Animal> listaDeAnimais = new ArrayList<>();
 
-    public Animal(String nome, LocalDate dataNascimento, double peso, String cor, String especie) {
+    public Animal(String nome, int idade, double peso, String cor, String especie) {
         this.id = geradorIdAnimal++;
         this.nome = nome;
-        this.dataNascimento = dataNascimento;
+        this.idade = idade;
         this.peso = peso;
         this.cor = cor;
         this.especie = especie;
@@ -33,8 +33,7 @@ public class Animal {
         this.nome = nome;
     }
 
-    
-    public void emitirSom(){
+    public void emitirSom() {
         System.out.println("Fazendo barulho");
     }
 
@@ -42,50 +41,61 @@ public class Animal {
         Animal novoAnimal = new Animal(nome, idade, peso, cor, especie);
         listaDeAnimais.add(novoAnimal);
     }
-    
-    public void cacadastrarAnimal(){
+
+    public void cadastrarAnimal(){
         listaDeAnimais.add(this);
     }
-
-    public void editarAnimal() {
-        System.out.println("Animal editado");
-    }
-
+    
+    //Funcao de busca geral de animais -> Retorna a lista com todos os animais cadastrados
     public static String listarAnimais() {
+
         if (!listaDeAnimais.isEmpty()) {
+            
             StringBuilder sb = new StringBuilder();
+            
             for (Animal a : Animal.listaDeAnimais) {
                 sb.append(a).append("\n");
             }
+            
             return sb.toString();
         }
         return null;
     }
-    
+
+    //Filtro de busca de animais por especie
     public static String listarAnimaisPorEspecie(String especie) {
         if (!listaDeAnimais.isEmpty()) {
+
             StringBuilder sb = new StringBuilder();
+
             for (Animal a : Animal.listaDeAnimais) {
-                if(a.especie.equals(especie)){
+                if (a.getEspecie().equals(especie)) {
                     sb.append(a).append("\n");
-                }                
+                }
             }
+
             return sb.toString();
         }
         return null;
     }
-    
-    public static Animal buscarPorNome(String nome){
-        if(!listaDeAnimais.isEmpty()){
-            for(Animal a: listaDeAnimais){
-                if(a.getNome().equalsIgnoreCase(nome)){
+
+    public static Animal buscarPorNome(String nome) {
+        if (!listaDeAnimais.isEmpty()) {
+            for (Animal a : listaDeAnimais) {
+                if (a.getNome().equalsIgnoreCase(nome)) {
                     return a;
                 }
             }
         }
         return null;
     }
-    
+
+    //Funcao para editar as informações dos animais -> Possibilita que o usuario altere informações como Peso e Cor
+    public static void editarAnimal(String nome, double novoPeso) {
+        var animal = Animal.buscarPorNome(nome);
+        animal.setPeso(novoPeso);
+    }
+
     public int getId() {
         return id;
     }
@@ -94,12 +104,22 @@ public class Animal {
         this.id = id;
     }
 
-   
-   
+    public void setPeso(double peso) {
+//        if(peso>)
+        this.peso = peso;
+    }
+
+    public double getPeso() {
+        return peso;
+    }
+
+    public String getEspecie() {
+        return especie;
+    }
+
     @Override
     public String toString() {
         return "id: " + id + ", Nome: " + nome + ", Idade: " + idade + ", peso=" + peso + "kg, cor: " + cor + ", especie: " + especie;
     }
-    
-    
+
 }
