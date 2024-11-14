@@ -4,6 +4,7 @@
  */
 package views;
 
+import entities.Animal;
 import entities.Cachorro;
 import entities.Gato;
 import java.awt.Color;
@@ -24,21 +25,34 @@ public class TelaCadastroAnimal extends javax.swing.JFrame {
      */
     public TelaCadastroAnimal() {
         initComponents();
+        var novoGato1 = new Gato("TESTE", 2, 6, "BRANCO");
+        var novoGato2 = new Gato("Linda", 2, 6, "CINZA");
+        var novoGato3 = new Gato("Gatinha", 2, 6, "BRANCO");
+        var novoCachorro2 = new Cachorro("Princesa", 20, 80, "BRANCO");
+        var novoCachorro3 = new Cachorro("Negao", 20, 80, "PRETO");
+
+        novoGato1.cadastrarAnimal();
+        novoGato2.cadastrarAnimal();
+        novoGato3.cadastrarAnimal();
+
+        novoCachorro2.cadastrarAnimal();
+        novoCachorro3.cadastrarAnimal();
         ativarPlaceHolder();
     }
-    
-    public void configurarPlaceHolder(JTextField txt, String mensagem){
+
+    public void configurarPlaceHolder(JTextField txt, String mensagem) {
         txt.setText(mensagem);
         txt.setForeground(Color.GRAY);
-        
+
         txt.addFocusListener(new FocusListener() {
-            
+
             public void focusGained(FocusEvent e) {
                 if (txt.getText().equals(mensagem)) {
                     txt.setText("");
                     txt.setForeground(Color.BLACK); // Cor do texto normal
                 }
             }
+
             public void focusLost(FocusEvent e) {
                 if (txt.getText().isEmpty()) {
                     txt.setText(mensagem);
@@ -46,10 +60,10 @@ public class TelaCadastroAnimal extends javax.swing.JFrame {
                 }
             }
         });
-        
+
     }
-    
-    public void ativarPlaceHolder(){
+
+    public void ativarPlaceHolder() {
         configurarPlaceHolder(txtNomeAnimal, "Digite o nome...");
         configurarPlaceHolder(txtPesoAnimal, "Digite o peso...");
         configurarPlaceHolder(txtIdadeAnimal, "Digite a idade...");
@@ -225,67 +239,80 @@ public class TelaCadastroAnimal extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPesoAnimalActionPerformed
 
     private void comboBoxEspecieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxEspecieActionPerformed
-       
+
     }//GEN-LAST:event_comboBoxEspecieActionPerformed
 
     private void comboBoxCorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxCorActionPerformed
-        
+
     }//GEN-LAST:event_comboBoxCorActionPerformed
 
-            
+
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         String nome = txtNomeAnimal.getText();
 //        if(nome.equalsIgnoreCase("")|| nome.equalsIgnoreCase("Digite o nome...") || nome.length()<=3){
 //            JOptionPane.showMessageDialog(null, "Preencha o campo com pelo menos 3 caracteres");
 //        }
-        
+
         int idade = Integer.parseInt(txtIdadeAnimal.getText());
 //        if(idade<=0|| txtIdadeAnimal.getText().equalsIgnoreCase("Digite a idade...")){
 //            JOptionPane.showMessageDialog(null, "Preencha a idade com um valor válido");            
 //        }
-        
+
         double peso = Double.parseDouble(txtPesoAnimal.getText());
 //        if(peso<=0.0|| txtPesoAnimal.getText().equalsIgnoreCase("Digite a peso...")){
 //            JOptionPane.showMessageDialog(null, "Digite um peso válido");            
 //        }
-        
+
         int indexEspecie = comboBoxEspecie.getSelectedIndex(); //verifica o id do item na caixa de selecao
         int indexCor = comboBoxCor.getSelectedIndex(); //verifica o id do item na caixa de selecao
-        
-        if(indexCor==0){
+
+        if (indexCor == 0) {
             JOptionPane.showMessageDialog(null, "Selecione uma cor válida");
-        } else if (indexEspecie == 0 && indexCor!=0 ){
+        } else if (indexEspecie == 0 && indexCor != 0) {
             JOptionPane.showMessageDialog(null, "Selecione uma espécie válida");
         }
-        
+
         String cor = null;
-        
-        switch (indexCor){ // associa o id do item ao texto presente no campo
-            
-            case 1 -> cor = "BRANCO";
-            case 2 -> cor = "PRETO";
-            case 3 -> cor = "CARAMELO";
+
+        switch (indexCor) { // associa o id do item ao texto presente no campo
+
+            case 1 ->
+                cor = "BRANCO";
+            case 2 ->
+                cor = "PRETO";
+            case 3 ->
+                cor = "CARAMELO";
         }
-        
-        switch(indexEspecie){ // associa o id do item ao texto presente no campo
-           
-           case 1 -> { // se o item selecionado for o 0 ele vai instanciar um objeto GATO
-               var gato = new Gato(nome, idade, peso, cor);
-               gato.cacadastrarAnimal(); // cadastra o objeto instanciado na lista de animais
-                JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
+
+        switch (indexEspecie) { // associa o id do item ao texto presente no campo
+
+            case 1 -> { // se o item selecionado for o 0 ele vai instanciar um objeto GATO
+                var gato = new Gato(nome, idade, peso, cor);
+
+                if (Animal.buscarPorNome(gato.getNome()) == null) {
+                    gato.cadastrarAnimal(); // cadastra o objeto instanciado na lista de animais
+                    JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
+                } else {
+                    JOptionPane.showMessageDialog(null, "ANIMAL JÁ EXISTE!");
+                }
             }
-           case 2 -> { 
-               var cachorro = new Cachorro(nome, idade, peso, cor); // se o item selecionado for o 0 ele vai instanciar um objeto GATO
-               cachorro.cacadastrarAnimal(); // cadastra o objeto instanciado na lista de animais
-               JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
+            case 2 -> {
+                var cachorro = new Cachorro(nome, idade, peso, cor); // se o item selecionado for o 0 ele vai instanciar um objeto GATO
+
+                if (Animal.buscarPorNome(cachorro.getNome()) == null) {
+                    cachorro.cadastrarAnimal(); // cadastra o objeto instanciado na lista de animais
+                    JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
+                } else {
+                    JOptionPane.showMessageDialog(null, "ANIMAL JÁ EXISTE!");
+                }
             }
         }
-        
-        
+
+
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnListarAnimaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarAnimaisActionPerformed
-        TelaListagemDePets telaAnimais = new TelaListagemDePets();       
+        TelaListagemDePets telaAnimais = new TelaListagemDePets();
         telaAnimais.setVisible(true);
     }//GEN-LAST:event_btnListarAnimaisActionPerformed
 
@@ -303,16 +330,24 @@ public class TelaCadastroAnimal extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastroAnimal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCadastroAnimal.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastroAnimal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCadastroAnimal.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastroAnimal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCadastroAnimal.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaCadastroAnimal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCadastroAnimal.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
