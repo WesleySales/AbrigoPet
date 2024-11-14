@@ -24,6 +24,10 @@ public class Animal {
         this.cor = cor;
         this.especie = especie;
     }
+    
+    public void setIdade(int idade) {
+        this.idade = idade;
+    }
 
     public String getNome() {
         return nome;
@@ -91,9 +95,11 @@ public class Animal {
     }
 
     //Funcao para editar as informações dos animais -> Possibilita que o usuario altere informações como Peso e Cor
-    public static void editarAnimal(String nome, double novoPeso) {
+    public static void editarAnimal(String nome, double novoPeso, int novaIdade, String novoNome) {
         var animal = Animal.buscarPorNome(nome);
+        animal.setNome(novoNome);
         animal.setPeso(novoPeso);
+        animal.setIdade(novaIdade);
     }
 
     public int getId() {

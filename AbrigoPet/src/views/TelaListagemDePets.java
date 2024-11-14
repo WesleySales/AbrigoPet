@@ -7,6 +7,7 @@ package views;
 import entities.Animal;
 import entities.Cachorro;
 import entities.Gato;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -201,7 +202,18 @@ public class TelaListagemDePets extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDeletarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        // TODO add your handling code here:
+        String nome = JOptionPane.showInputDialog(rootPane, "digite o nome");
+        
+        if (Animal.buscarPorNome(nome)==null) {
+                    JOptionPane.showMessageDialog(null, "Animal não existe");
+                } else {                    
+                    String novoNome = JOptionPane.showInputDialog(rootPane, "digite o novo nome");
+                    int idade = Integer.parseInt(JOptionPane.showInputDialog(rootPane, "digite a nova idade"));
+                    double novoPeso = Double.parseDouble(JOptionPane.showInputDialog(rootPane, "digite a novo peso"));
+                    Animal.editarAnimal(nome, novoPeso, idade, novoNome);
+                    
+                    JOptionPane.showMessageDialog(null, "Animal Editado com Sucesso");
+                }
     }//GEN-LAST:event_btnEditarActionPerformed
 
     public static void main(String args[]) {

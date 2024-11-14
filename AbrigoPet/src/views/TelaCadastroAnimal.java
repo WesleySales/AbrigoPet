@@ -271,6 +271,7 @@ public class TelaCadastroAnimal extends javax.swing.JFrame {
         } else if (indexEspecie == 0 && indexCor != 0) {
             JOptionPane.showMessageDialog(null, "Selecione uma espécie válida");
         }
+     
 
         String cor = null;
 
